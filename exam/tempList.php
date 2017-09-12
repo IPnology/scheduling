@@ -33,7 +33,7 @@ $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
                         <div class="panel-heading">
                             Please double check the exam schedule. Data highted in red is conflict and will not be uploaded. If you are sure click
 							
-											<button class="btn btn-primary" onClick="location.href='process.php?action=upload_now'">Upload Now</button>
+											<button class="btn btn-primary" onClick="location.href='process.php?action=upload_now'"><i class="fa fa-upload"></i>&nbsp; Upload</button>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -62,7 +62,7 @@ $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
                                         <td><?=$room;?></td>
                                         <td><?=$course;?></td>
                                         <td>
-											<button class="btn btn-danger" onClick="location.href='process.php?action=remove&id=<?=$Id?>'">Remove</button>
+											<button class="btn btn-danger" onClick="location.href='process.php?action=remove&id=<?=$Id?>'"><i class="fa fa-trash"></i></button>
 											
 										</td>
                                     </tr>

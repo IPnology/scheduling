@@ -76,7 +76,7 @@ function upload(){
 			$code = $filesop[0];
 			$name = $filesop[1];
 			  
-		if(mysql_num_rows(mysql_query("select * from aubject where code='$code'")) > 0){
+		if(mysql_num_rows(mysql_query("select * from subject where code='$code'")) > 0){
 					
 				  $fail += 1;
 			}

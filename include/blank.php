@@ -78,64 +78,101 @@ else{
 						<?php if ($have['auth']=='Admin'){ ?>
 						
                         <li>
-                            <a href="../user/?view=register"><i class="fa fa-dashboard fa-fw"></i> Register a New User</a>
+                            <a href="../user/?view=register"><i class="fa fa-user-plus fa-fw"></i> Register a New User</a>
+                        </li>
+						
+						
+						<li>
+                            <a href="#"><i class="fa fa-sticky-note-o fa-fw"></i> Exams<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../exam/?view=adminList">List of Exams</a>
+                                </li>
+                                <li>
+                                    <a href="../exam/?view=adminGridList">Grid View (Rooms)</a>
+                                </li>
+                                <li>
+                                    <a href="../exam/?view=adminGridListFaculty">Grid View (Faculty)</a>
+                                </li>
+								
+								<li>
+									<a href="../exam/process.php?action=create_exam">Create Exam Schedule</a>
+								</li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
 						
                         <li>
-                            <a href="../exam/"><i class="fa fa-dashboard fa-fw"></i> Create Exam Schedule</a>
+                            <a href="../user/?view=userList"><i class="fa fa-users fa-fw"></i> User List</a>
                         </li>
 						
                         <li>
-                            <a href="../exam/?view=adminList"><i class="fa fa-dashboard fa-fw"></i> View Exam List</a>
+                            <a href="../room/"><i class="fa fa-institution fa-fw"></i> Room List</a>
                         </li>
 						
                         <li>
-                            <a href="../user/?view=userList"><i class="fa fa-dashboard fa-fw"></i> View User List</a>
+                            <a href="../subject/"><i class="fa fa-book fa-fw"></i> Subjects List</a>
                         </li>
 						
                         <li>
-                            <a href="../room/"><i class="fa fa-dashboard fa-fw"></i> View Room List</a>
+                            <a href="../importSubjects/"><i class="fa fa-upload fa-fw"></i> Import Subjects</a>
                         </li>
 						
                         <li>
-                            <a href="../subject/"><i class="fa fa-dashboard fa-fw"></i> View Subjects List</a>
+                            <a href="../generaleducation/process.php?action=create_exam"><i class="fa fa-sign-language fa-fw"></i>General Education List</a>
                         </li>
 						
 						<?php } else if ($have['auth']=='VPAA'){ ?>
 						
                         <li>
-                            <a href="../exam/?view=vpaaList"><i class="fa fa-dashboard fa-fw"></i> View Exam Request</a>
+                            <a href="../exam/?view=vpaaList"><i class="fa fa-sticky-note-o fa-fw"></i> View Exam Request</a>
+                        </li>
+						
+                        <li>
+                            <a href="../vpaa/?view=approvedList"><i class="fa fa-thumbs-up fa-fw"></i> Approved Exam Request</a>
+                        </li>
+						
+                        <li>
+                            <a href="../vpaa/?view=deniedList"><i class="fa fa-thumbs-down fa-fw"></i> Denied Exam Request</a>
                         </li>
 						
 						<?php } else if ($have['auth']=='Area Head'){ ?>
 						
                         <li>
-                            <a href="../exam/?view=areaList"><i class="fa fa-dashboard fa-fw"></i> View Exam Schedule</a>
+                            <a href="../exam/?view=areaList"><i class="fa fa-sticky-note-o fa-fw"></i> View Exam Schedule</a>
+                        </li>
+						
+                        <li>
+                            <a href="../exam/?view=areaCalendar"><i class="fa fa-calendar fa-fw"></i> View Calendar</a>
                         </li>
 						
 						<?php } else if ($have['auth']=='Faculty'){ ?>
 						
                         <li>
-                            <a href="../exam/?view=facultyList"><i class="fa fa-dashboard fa-fw"></i> View Exam schedule</a>
+                            <a href="../exam/?view=facultyList"><i class="fa fa-sticky-note-o fa-fw"></i> View Exam schedule</a>
                         </li>
 						
                         <li>
-                            <a href="../exam/?view=facultyCalendar"><i class="fa fa-dashboard fa-fw"></i> View My Calendar</a>
+                            <a href="../exam/?view=facultyCalendar"><i class="fa fa-calendar fa-fw"></i> View My Calendar</a>
                         </li>
+						
+                        <li>
+                            <a href="../faculty/"><i class="fa fa-book fa-fw"></i> My Subjects</a>
+                        </li>
+					
 						
 						<?php } else if ($have['auth']=='Student'){ ?>
 						
                         <li>
-                            <a href="../exam/?view=studentList"><i class="fa fa-dashboard fa-fw"></i> View My Exam Schedule</a>
+                            <a href="../exam/?view=studentList"><i class="fa fa-sticky-note-o fa-fw"></i> View My Exam Schedule</a>
                         </li>
 						
                         <li>
-                            <a href="../exam/?view=studentCalendar"><i class="fa fa-dashboard fa-fw"></i> View My Calendar</a>
+                            <a href="../exam/?view=studentCalendar"><i class="fa fa-calendar fa-fw"></i> View My Calendar</a>
                         </li>
 						
                         <li>
-                            <a href="../student/"><i class="fa fa-dashboard fa-fw"></i>My Subjects</a>
-							
+                            <a href="../student/"><i class="fa fa-book fa-fw"></i>My Subjects</a>
                         </li>
 						
 						<?php

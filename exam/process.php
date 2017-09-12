@@ -10,6 +10,14 @@ switch ($action) {
 	case 'remove' :
 		remove();
 		break;
+		
+	case 'removeExam' :
+		removeExam();
+		break;
+		
+	case 'removeExamFaculty' :
+		removeExamFaculty();
+		break;
     
 	case 'create_exam' :
 		create_exam();
@@ -54,6 +62,14 @@ switch ($action) {
 	case 'exportAreaExam' :
 		exportAreaExam();
 		break;
+    
+	case 'quickCreate' :
+		quickCreate();
+		break;
+    
+	case 'quickCreateFaculty' :
+		quickCreateFaculty();
+		break;
 
 	default :
 }
@@ -74,6 +90,28 @@ function remove(){
 	mysql_query("delete from exam_tmp where Id = '".$id."'");
 												
 	header('Location: index.php?view=temp_exam&success=Exam Schedule Successfully Removed.');
+	
+}
+
+function removeExam(){
+	$id = $_GET['id'];
+	$date = $_GET['date'];
+	
+
+	mysql_query("delete from exam where Id = '".$id."'");
+												
+	header('Location: index.php?view=adminGridList&date='.$date);
+	
+}
+
+function removeExamFaculty(){
+	$id = $_GET['id'];
+	$date = $_GET['date'];
+	
+
+	mysql_query("delete from exam where Id = '".$id."'");
+												
+	header('Location: index.php?view=adminGridListFaculty&date='.$date);
 	
 }
 
@@ -211,7 +249,7 @@ function upload_now(){
 	$fail = 0;
 	while($row=mysql_fetch_array($query)){
 		extract($row);
-		if (checkConflict($room, $date, $time_from, $proctor)){
+		if (checkTempConflict($room, $date, $time_from, $proctor)){
 			$fail += 1;
 		}
 		else if ($subject_code=='' || $date=='0000-00-00' || $time_from=='' || $time_to==''){
@@ -257,6 +295,7 @@ function upload_now(){
 
 function update()
 {
+	$username = $_POST['username'];
 	$id = $_POST['id'];
 	$subject_code = $_POST['subject_code'];
 	$date = $_POST['date'];
@@ -268,6 +307,8 @@ function update()
 	$sy = $_POST['sy'];
 	$sem = $_POST['sem'];
 	$term = $_POST['term'];
+	
+	$userPosition = getUserPosition($username);
 	
 	
 	if ($time == '730'){
@@ -313,8 +354,9 @@ function update()
 		header('Location: index.php?view=create.');
 	}else{
 		
-		
-		mysql_query("update exam set subject_code='$subject_code',
+			
+		if ($userPosition == 'VPAA'){
+			mysql_query("update exam set subject_code='$subject_code',
 														date='$date',
 														time_from='$time_from',
 														time_to='$time_to',
@@ -324,11 +366,33 @@ function update()
 														course='$course',
 														sy='$sy',
 														sem='$sem',
+														term='$term',
+														is_approved='1'
+														where Id=$id
+														");
+		}		
+		else{
+			
+			mysql_query("update exam set subject_code='$subject_code',
+														date='$date',
+														time_from='$time_from',
+														time_to='$time_to',
+														room='$room',
+														proctor='$proctor',
+														mentor='$mentor',
+														course='$course',
+														sy='$sy',
+														sem='$sem',
+														is_approved=0,
 														term='$term'
 														where Id=$id
-														");		
+														");	
 														
-		header('Location: index.php?view=create&success=You have successfully created an exam schedule.');
+			mysql_query("delete from denied_reason where exam_id=$id");
+		}
+		
+														
+		header('Location: index.php?view=create&success=You have successfully updated an exam schedule.');
 	}
 }
 
@@ -416,7 +480,7 @@ function approve()
 	$get = mysql_fetch_array(mysql_query("select * from exam where Id=$id"));
 	
 	
-	if(checkConflict($get['room'], $get['date'], $get['time_from'], $proctor)){
+	if(checkConflict($get['room'], $get['date'], $get['time_from'], $get['proctor'])){
 		
 		header('Location: ../exam/?view=vpaaList&id='.$id.'&error=Conflict can not be approved.');
 	}
@@ -530,6 +594,114 @@ function exportAreaExam()
 	
 	
 	header('Location: index.php?view=facultyExamList');
+}
+
+function quickCreate()
+{
+	$subject_code = $_POST['subject_code'];
+	$date = $_POST['date'];
+	$time_from = $_POST['timeFrom'];
+	$time_to = $_POST['timeTo'];
+	$room = $_POST['room'];
+	$proctor = $_POST['proctor'];
+	$mentor = $_POST['mentor'];
+	$course = $_POST['course'] . $_POST['year'] . "-" . $_POST['section'];
+	
+	$get = mysql_fetch_array(mysql_query("select * from settings"));
+	
+	$sy = $get['sy'];
+	$sem = $get['sem'];
+	$term = $get['term'];
+	
+	
+	if(checkConflict($room, $date, $time_from, $proctor)){
+		
+		mysql_query("insert into exam_tmp set subject_code='$subject_code',
+														date='$date',
+														time_from='$time_from',
+														time_to='$time_to',
+														room='$room',
+														proctor='$proctor',
+														mentor='$mentor',
+														course='$course',
+														sy='$sy',
+														sem='$sem',
+														term='$term'
+														");
+		
+		header('Location: index.php?view=create.');
+	}else{
+	
+		mysql_query("insert into exam set subject_code='$subject_code',
+														date='$date',
+														time_from='$time_from',
+														time_to='$time_to',
+														room='$room',
+														proctor='$proctor',
+														mentor='$mentor',
+														course='$course',
+														sy='$sy',
+														sem='$sem',
+														term='$term'
+														");
+		
+		header('Location: index.php?view=adminGridList&date='.$date);
+	}
+	
+}
+
+function quickCreateFaculty()
+{
+	$subject_code = $_POST['subject_code'];
+	$date = $_POST['date'];
+	$time_from = $_POST['timeFrom'];
+	$time_to = $_POST['timeTo'];
+	$room = $_POST['room'];
+	$proctor = $_POST['proctor'];
+	$mentor = $_POST['mentor'];
+	$course = $_POST['course'] . $_POST['year'] . "-" . $_POST['section'];
+	
+	$get = mysql_fetch_array(mysql_query("select * from settings"));
+	
+	$sy = $get['sy'];
+	$sem = $get['sem'];
+	$term = $get['term'];
+	
+	
+	if(checkConflict($room, $date, $time_from, $proctor)){
+		
+		mysql_query("insert into exam_tmp set subject_code='$subject_code',
+														date='$date',
+														time_from='$time_from',
+														time_to='$time_to',
+														room='$room',
+														proctor='$proctor',
+														mentor='$mentor',
+														course='$course',
+														sy='$sy',
+														sem='$sem',
+														term='$term'
+														");
+		
+		header('Location: index.php?view=create.');
+	}else{
+	
+		mysql_query("insert into exam set subject_code='$subject_code',
+														date='$date',
+														time_from='$time_from',
+														time_to='$time_to',
+														room='$room',
+														proctor='$proctor',
+														mentor='$mentor',
+														course='$course',
+														sy='$sy',
+														sem='$sem',
+														term='$term'
+														");
+		
+		header('Location: index.php?view=adminGridListFaculty&date='.$date);
+	}
+	
 }
 
 ?>

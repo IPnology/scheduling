@@ -1,5 +1,11 @@
 <?php
-$query = mysql_query("select * from exam where is_approved=1 and (proctor='$user')");
+$area = mysql_fetch_array(mysql_query("select * from area_head where idnumber='$user'"));
+
+$course = $area['area'];
+
+$query = mysql_query("select * from exam where is_approved=1 and course like '$course%'");
+
+$success = (isset($_GET['success']) && $_GET['success'] != '') ? $_GET['success'] : '';
 ?>
 
 <link rel='stylesheet' type='text/css' href='../include/calendar/fullcalendar/fullcalendar.css' />

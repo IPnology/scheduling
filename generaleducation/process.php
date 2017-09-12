@@ -1,3 +1,4 @@
+
 <?php
 
 require_once '../config/database.php';
@@ -78,7 +79,7 @@ function upload(){
 			$sem = $filesop[9];
 			$term = $filesop[10];
 			
-			$date = DateTime::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+			$date = date_create($date)->format('Y-m-d');
 			  
 		  mysql_query("insert into exam_tmp set subject_code='$subject_code',
 														date='$date',

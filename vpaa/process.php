@@ -29,7 +29,7 @@ function deny_reason(){
 	$id = $_POST['id'];
 	$reason = $_POST['reason'];
 	
-	mysql_query("insert into denied_reason where exam_id=$id and reason='$reason'");
+	mysql_query("insert into denied_reason set exam_id=$id, reason='$reason'");
 												
 	header('Location: ../exam/?view=vpaaList&id='.$id.'&success=Successfully Denied.');
 	

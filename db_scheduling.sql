@@ -1,7 +1,8 @@
 ﻿# Host: localhost  (Version 5.5.5-10.1.16-MariaDB)
-# Date: 2017-08-12 14:51:54
-# Generator: MySQL-Front 6.0  (Build 1.159)
+# Date: 2017-09-12 23:47:44
+# Generator: MySQL-Front 5.4  (Build 1.40)
 
+/*!40101 SET NAMES utf8 */;
 
 #
 # Structure for table "area_head"
@@ -19,26 +20,7 @@ CREATE TABLE `area_head` (
 # Data for table "area_head"
 #
 
-INSERT INTO `area_head` VALUES (1,'a11111','BSIT'),(2,'a11111','BSIT'),(3,'a1','BSBA');
-
-#
-# Structure for table "comment"
-#
-
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) DEFAULT NULL,
-  `user` varchar(20) DEFAULT NULL,
-  `content` text,
-  `create_datetime` datetime DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
-#
-# Data for table "comment"
-#
-
+INSERT INTO `area_head` VALUES (1,'12-0002-001','BSIT'),(2,'12-0002-002','BSBA'),(3,'12345','BSIT');
 
 #
 # Structure for table "denied_reason"
@@ -50,12 +32,13 @@ CREATE TABLE `denied_reason` (
   `exam_id` int(11) DEFAULT NULL,
   `reason` text,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "denied_reason"
 #
 
+INSERT INTO `denied_reason` VALUES (1,21,'dfgfdgfd'),(2,9,'ahahahahha'),(8,13,'conflict on proctor');
 
 #
 # Structure for table "exam"
@@ -64,27 +47,27 @@ CREATE TABLE `denied_reason` (
 DROP TABLE IF EXISTS `exam`;
 CREATE TABLE `exam` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `subject_code` varchar(255) DEFAULT NULL,
+  `subject_code` varchar(100) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `time_from` time DEFAULT NULL,
   `time_to` time DEFAULT NULL,
-  `room` varchar(255) DEFAULT NULL,
-  `proctor` varchar(255) DEFAULT NULL,
-  `mentor` varchar(255) DEFAULT NULL,
-  `course` varchar(255) DEFAULT NULL,
-  `sy` varchar(255) DEFAULT NULL,
-  `sem` varchar(255) DEFAULT NULL,
-  `term` varchar(255) DEFAULT NULL,
+  `room` varchar(50) DEFAULT NULL,
+  `proctor` varchar(100) DEFAULT NULL,
+  `mentor` varchar(100) DEFAULT NULL,
+  `course` varchar(100) DEFAULT NULL,
+  `sy` varchar(100) DEFAULT NULL,
+  `sem` varchar(100) DEFAULT NULL,
+  `term` varchar(100) DEFAULT NULL,
   `is_approved` int(1) DEFAULT '0',
   `is_general` int(1) DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "exam"
 #
 
-INSERT INTO `exam` VALUES (1,'eng101','2017-08-01','07:30:00','21:30:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',1,0),(2,'eng102','2017-08-01','07:30:00','21:30:00','c2-1','v1','v2','BSBA1-A','2016-2017','First Semester','Prelim',1,0),(5,'eng107','2017-08-01','18:00:00','20:00:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',0,0),(6,'eng107','2017-08-02','07:30:00','21:30:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',1,0),(7,'eng107','2017-08-02','07:30:00','21:30:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',-1,0),(8,'eng107','2017-08-02','07:30:00','21:30:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',0,0),(9,'eng101','0000-00-00','07:30:00','21:30:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',1,1),(10,'eng107','2017-08-30','07:30:00','21:30:00','c3-6','v2','v2','BSBA1-A','2016-2017','First Semester','Prelim',1,0);
+INSERT INTO `exam` VALUES (1,'ITS 402','2017-09-12','07:30:00','09:30:00','A2-2','12-0004-001','12-0004-001','BSBA1-A','2017-2018','First Semester','Prelim',0,0),(5,'ITS 402','2017-09-12','09:30:00','11:30:00','A2-2','12-0005-003','12-0004-001','BSBA1-A','2017-2018','First Semester','Prelim',0,0),(6,'ITS 402','2017-09-12','07:30:00','09:30:00','c2-1','12-0005-003','12-0004-001','BSBA1-A','2017-2018','First Semester','Prelim',0,0);
 
 #
 # Structure for table "exam_tmp"
@@ -107,7 +90,7 @@ CREATE TABLE `exam_tmp` (
   `is_approved` int(1) DEFAULT '0',
   `is_general` int(1) DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 #
 # Data for table "exam_tmp"
@@ -127,13 +110,13 @@ CREATE TABLE `my_subjects` (
   `sched` varchar(255) DEFAULT NULL,
   `facultyId` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "my_subjects"
 #
 
-INSERT INTO `my_subjects` VALUES (3,'s11111','eng104',NULL,NULL,NULL),(4,'s11111','eng106',NULL,NULL,NULL),(5,'s101','eng101',NULL,NULL,NULL),(6,'s101','eng102',NULL,NULL,NULL);
+INSERT INTO `my_subjects` VALUES (1,'12-0001-001','PHIL 101','7:30:00','MWF','12-0004-001'),(2,'12-0000-002','PHIL 101','7:30:00','TTH','12-0004-001'),(3,'12-0001-001','BANK 701','7:30:00','MWF','12-0004-002'),(4,NULL,'',NULL,NULL,NULL);
 
 #
 # Structure for table "room"
@@ -144,13 +127,13 @@ CREATE TABLE `room` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `room` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "room"
 #
 
-INSERT INTO `room` VALUES (1,'c2-1'),(2,'c2-2'),(3,'c2-3'),(4,'c3-1'),(5,'c3-2'),(6,'c3-3'),(7,'c3-4'),(8,'c3-5'),(9,'c3-6');
+INSERT INTO `room` VALUES (1,'c2-1'),(2,'c2-2'),(3,'c2-3'),(4,'c2-4'),(5,'c2-5'),(6,'c2-6'),(7,'c2-7'),(8,'c2-8'),(9,'c2-9'),(10,'complab-a'),(11,'complab-b'),(12,'complab-c'),(13,'A2-1'),(14,'A2-2');
 
 #
 # Structure for table "settings"
@@ -169,7 +152,7 @@ CREATE TABLE `settings` (
 # Data for table "settings"
 #
 
-INSERT INTO `settings` VALUES (1,'2016-2017','First Semester','Prelim');
+INSERT INTO `settings` VALUES (1,'2017-2018','First Semester','Prelim');
 
 #
 # Structure for table "student"
@@ -189,7 +172,7 @@ CREATE TABLE `student` (
 # Data for table "student"
 #
 
-INSERT INTO `student` VALUES (1,'s11111','BSIT','1','A'),(2,'s101','BSBA','1','A');
+INSERT INTO `student` VALUES (1,'12-0001-001','BSIT','1','A'),(2,'12-0001-002','BSIT','4','A');
 
 #
 # Structure for table "subject"
@@ -201,13 +184,13 @@ CREATE TABLE `subject` (
   `code` varchar(20) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "subject"
 #
 
-INSERT INTO `subject` VALUES (1,'eng101','English 1'),(2,'eng102','English 2'),(3,'eng103','English 3'),(4,'eng104','English 4'),(5,'eng105','English 5'),(6,'eng106','English 6'),(7,'eng107','English 7');
+INSERT INTO `subject` VALUES (1,'ENGL 101','ENGLISH'),(2,'ACCTG 300','ACCOUNTING'),(3,'PHIL 101','PHILOSOPHY'),(4,'SSCI 100','SOCIOLOGY'),(5,'PE 101','PHYSICAL EDUCATION'),(6,'POLSCI 100','POLITICAL SCIENCE'),(7,'BIOSCI 100','BIOLOGICAL SCIENCE'),(8,'NTSCI 101','NATIONAL SCIENCE'),(9,'ITS 101','PROGRAMMING'),(10,'ITS 201','DATABASE'),(11,'ITS 402','CAPSTONE PROJECT');
 
 #
 # Structure for table "user"
@@ -216,16 +199,16 @@ INSERT INTO `subject` VALUES (1,'eng101','English 1'),(2,'eng102','English 2'),(
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `idnumber` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `auth` varchar(255) DEFAULT NULL,
+  `idnumber` varchar(20) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `auth` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "user"
 #
 
-INSERT INTO `user` VALUES (1,'admin1','827ccb0eea8a706c4c34a16891f84e7b','Digong','Duterte','Admin'),(11,'admin','4f5f3c2adbcc8752f1e2e4b81ea188c4','admin','admin','Admin'),(12,'101010','827ccb0eea8a706c4c34a16891f84e7b','deeb','bian','Admin'),(13,'123456','827ccb0eea8a706c4c34a16891f84e7b','hello','world','VPAA'),(14,'v1','827ccb0eea8a706c4c34a16891f84e7b','v1','v1','Faculty'),(15,'v2','4f5f3c2adbcc8752f1e2e4b81ea188c4','v2','v2','Faculty'),(16,'s101','827ccb0eea8a706c4c34a16891f84e7b','s','101','Student'),(17,'a1','827ccb0eea8a706c4c34a16891f84e7b','a1','a1','Area Head');
+INSERT INTO `user` VALUES (2,'admin','827ccb0eea8a706c4c34a16891f84e7b','Digong','Duterte','Admin'),(3,'12-0000-001','827ccb0eea8a706c4c34a16891f84e7b','Sharon','Cuneta','Admin'),(4,'12-0000-002','4f5f3c2adbcc8752f1e2e4b81ea188c4','Gabby','Conception','Admin'),(5,'12-0001-001','827ccb0eea8a706c4c34a16891f84e7b','Kim','Chu','Student'),(6,'12-0001-002','827ccb0eea8a706c4c34a16891f84e7b','Gerald','Anderson','Student'),(7,'12-0002-001','827ccb0eea8a706c4c34a16891f84e7b','Liza','Soberano','Area Head'),(8,'12-0002-002','827ccb0eea8a706c4c34a16891f84e7b','Enrique','Gil','Area Head'),(9,'12-0003-001','827ccb0eea8a706c4c34a16891f84e7b','Daniel','Padilla','VPAA'),(10,'12-0003-002','4f5f3c2adbcc8752f1e2e4b81ea188c4','Kathryn','Bernardo','VPAA'),(11,'12-0004-001','827ccb0eea8a706c4c34a16891f84e7b','Coco','Martin','Faculty'),(12,'12-0004-002','4f5f3c2adbcc8752f1e2e4b81ea188c4','Vice','Ganda','Faculty'),(13,'12345','4f5f3c2adbcc8752f1e2e4b81ea188c4','arvin','regalado','Area Head'),(14,'12-0005-001','827ccb0eea8a706c4c34a16891f84e7b','Jude','Bayer','Faculty'),(15,'12-0005-003','4f5f3c2adbcc8752f1e2e4b81ea188c4','Xander','Ford','Faculty');

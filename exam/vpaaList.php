@@ -60,8 +60,11 @@ $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
                                         <td><?=$course;?></td>
                                         <td><?=fullname($proctor);?></td>
                                         <td><?=fullname($mentor);?></td>
-                                        <td width="150"><button class="btn btn-info" onClick="location.href='process.php?action=approve&id=<?=$Id?>'">Approve</button>
-                                        <button class="btn btn-warning" onClick="location.href='process.php?action=deny&id=<?=$Id?>'">Deny</button></td>
+                                        <td width="150">
+										<button class="btn btn-info" onClick="location.href='process.php?action=approve&id=<?=$Id?>'"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                                        <button class="btn btn-danger" onClick="location.href='process.php?action=deny&id=<?=$Id?>'"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+										<button class="btn btn-" onClick="location.href='?view=update&id=<?=$Id?>'"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+										</td>
                                     </tr>
 								<?php
 								}

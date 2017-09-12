@@ -72,8 +72,8 @@ include 'import.php';
                                         <td><?=$get['room']?></td>
                                         <td><?=$get['course']?></td>
 										<td>
-												<button class="btn btn-primary btn-circle" onClick="location.href='index.php?view=updateConflict&id=<?=$get['Id']?>'"><i class="fa fa-edit"></i></button>
-												
+												<button class="btn btn-danger" onClick="location.href='index.php?view=updateConflict&id=<?=$get['Id']?>'"><i class="fa fa-trash"></i></button>
+										
 										</td>
                                         
                                 </tbody>

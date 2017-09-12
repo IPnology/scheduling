@@ -2,11 +2,12 @@
 $success = (isset($_GET['success']) && $_GET['success'] != '') ? $_GET['success'] : '';
 $id = (isset($_GET['id']) && $_GET['id'] != '') ? $_GET['id'] : '';
 
+$query = mysql_query("select * from exam where Id=$id");
+$row = mysql_fetch_array($query);
+extract($row);
+
 
 $setting = mysql_fetch_array(mysql_query('select * from settings'));
-
-$query = mysql_query("select * from exam_tmp where Id=$id");
-$row = mysql_fetch_array($query);
 ?>
 
 
@@ -26,6 +27,14 @@ $row = mysql_fetch_array($query);
 						<?=$success;?>
 					</div>
 					<?php }?>
+					
+					
+					<?php if ($is_approved ==-1){?>
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						Denied Reason: <?=deniedReason($Id)?>
+					</div>
+					<?php }?>
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -34,19 +43,19 @@ $row = mysql_fetch_array($query);
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form action="process.php?action=updateConflict" method="POST">
-									<input type="hidden" name="id" value="<?=$row['Id']?>">
+                                    <form action="process.php?action=update" method="POST">
+									<input type="hidden" name="id" value="<?=$Id?>">
 									
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Subject</span>
 											<select  name="subject_code" class="form-control" required>
-													<?=buildSubjectOptions($row['subject_code']);?>
+													<?=buildSubjectOptions($subject_code);?>
 											</select>
                                         </div>
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Date</span>
-                                            <input type="date" name="date" value="<?=$row['date']?>" class="form-control" placeholder="Type User's ID number" required>
+                                            <input type="date" name="date" value="<?=$date?>" class="form-control" placeholder="Type User's ID number" required>
                                         </div>
 										
                                         <div class="form-group input-group">
@@ -70,7 +79,7 @@ $row = mysql_fetch_array($query);
 										<div class="form-group">
 											<label>Proctor</label>
 											<select  name="proctor" class="form-control" required>
-													<?=buildProctorOptions($row['proctor']);?>
+													<?=buildProctorOptions($proctor);?>
 											</select>
 											
 											<input type="hidden" name="password" value="temppassword">
@@ -79,7 +88,7 @@ $row = mysql_fetch_array($query);
 										<div class="form-group">
 											<label>Mentor</label>
 											<select  name="mentor" class="form-control" required>
-													<?=buildMentorOptions($row['mentor']);?>
+													<?=buildMentorOptions($mentor);?>
 											</select>
 											
 											<input type="hidden" name="password" value="temppassword">
@@ -133,20 +142,20 @@ $row = mysql_fetch_array($query);
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">School Year</span>
-                                            <input type="text" name="sy" value="<?=$setting['sy']?>" class="form-control" placeholder="" readonly>
+                                            <input type="text" name="sy" value="<?=$setting['sy']?>" class="form-control" placeholder="" disabled>
 											
                                         </div>
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Semester</span>
-                                            <input type="text" name="sem" value="<?=$setting['sem']?>" class="form-control" placeholder="" readonly>
+                                            <input type="text" name="sem" value="<?=$setting['sem']?>" class="form-control" placeholder="" disabled>
 											
                                         </div>
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Term</span>
-                                            <input type="text" name="term" value="<?=$setting['term']?>" class="form-control" placeholder="" readonly>
-											
+                                            <input type="text" name="term" value="<?=$setting['term']?>" class="form-control" placeholder="" disabled>
+					
                                         </div>
 										
 										<div class="form-group col-xs-12">

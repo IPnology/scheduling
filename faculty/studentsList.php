@@ -1,5 +1,7 @@
 <?php
-$query = mysql_query("select * from my_subjects where facultyId='$user' order by Id desc");
+
+$subject = (isset($_GET['subject']) && $_GET['subject'] != '') ? $_GET['subject'] : '';
+$query = mysql_query("select * from my_subjects s, exam e where s.facultyId='$user' and s.code='$subject' and s.code = e.subject_code order by s.Id desc");
 
 $success = (isset($_GET['success']) && $_GET['success'] != '') ? $_GET['success'] : '';
 $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
@@ -7,7 +9,7 @@ $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
 
 <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">My Classes</h1>
+                    <h1 class="page-header"><?=$subject?> Students</h1>
                 </div>
                 <!-- /.col-lg-12 -->
 				
@@ -35,17 +37,15 @@ $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
                     <div class="panel panel-default">
 					
                         <div class="panel-heading">
-                            List of Subjects
+                            List of Students for <?=$subject?>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Code</th>
-                                        <th>Time</th>
-                                        <th>Schedule</th>
-                                        <th>&nbsp;</th>
+                                        <th>Student Name</th>
+                                        <th>Conflict With</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,11 +54,8 @@ $error = (isset($_GET['error']) && $_GET['error'] != '') ? $_GET['error'] : '';
 									extract($row);
 								?>
                                     <tr class="odd gradeX">
-                                        <td><?=$code;?></td>
-                                        <td><?=$time;?></td>
-                                        <td><?=$sched;?></td>
-                                        <td><a href="../faculty/?view=studentsList&subject=<?=$code;?>">View Students</a></td>
-										</td>
+                                        <td><?=fullname($row['idnumber']);?></td>
+                                        <td><?=studentSubjectConflictWith($row['idnumber'], $row['subject_code'], $row['date'], $row['time_from'], $row['time_to'])?></td>
                                     </tr>
 								<?php
 								}

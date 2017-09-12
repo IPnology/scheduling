@@ -47,7 +47,8 @@ $success = (isset($_GET['success']) && $_GET['success'] != '') ? $_GET['success'
 											<?php
 											if ($is_approved!=1){
 												?>
-												<button class="btn btn-primary btn-circle" onClick="location.href='index.php?view=update&id=<?=$Id?>'"><i class="fa fa-edit"></i></button>
+												<button class="btn btn-" onClick="location.href='?view=update&id=<?=$Id?>'"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+										
 												<?php
 											}
 											?>

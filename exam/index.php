@@ -30,6 +30,16 @@ switch ($view) {
 		$content 	= 'adminList.php';
 		$template	= '../include/template.php';
 		break;
+		
+	case 'adminGridList' :
+		$content 	= 'adminGridList.php';
+		$template	= '../include/template.php';
+		break;
+		
+	case 'adminGridListFaculty' :
+		$content 	= 'adminGridListFaculty.php';
+		$template	= '../include/template.php';
+		break;
 	
 	case 'vpaaList' :
 		$content 	= 'vpaaList.php';
@@ -39,6 +49,11 @@ switch ($view) {
 	case 'facultyList' :
 		$content 	= 'facultyList.php';
 		$template	= '../include/template.php';
+		break;
+	
+	case 'areaCalendar' :
+		$content 	= 'areaCalendar.php';
+		$template	= '../include/blank.php';
 		break;
 	
 	case 'facultyCalendar' :

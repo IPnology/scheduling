@@ -5,6 +5,9 @@ $id = (isset($_GET['id']) && $_GET['id'] != '') ? $_GET['id'] : '';
 $query = mysql_query("select * from exam where Id=$id");
 $row = mysql_fetch_array($query);
 extract($row);
+
+
+$setting = mysql_fetch_array(mysql_query('select * from settings'));
 ?>
 
 
@@ -24,6 +27,14 @@ extract($row);
 						<?=$success;?>
 					</div>
 					<?php }?>
+					
+					
+					<?php if ($is_approved ==-1){?>
+					<div class="alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						Denied Reason: <?=deniedReason($Id)?>
+					</div>
+					<?php }?>
 
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -34,6 +45,7 @@ extract($row);
                                 <div class="col-lg-6">
                                     <form action="process.php?action=update" method="POST">
 									<input type="hidden" name="id" value="<?=$Id?>">
+									<input type="hidden" name="username" value="<?=$user?>">
 									
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Subject</span>
@@ -58,10 +70,12 @@ extract($row);
 												</select>
                                         </div>
 										
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">Room</span>
-                                            <input type="text" name="room" value="<?=$room?>" class="form-control" placeholder="" required>
-                                        </div>
+										<div class="form-group">
+											<label>Room</label>
+											<select  name="room" class="form-control" required>
+													<?=buildRoomOptions();?>
+											</select>
+										</div>
                                        
 										<div class="form-group">
 											<label>Proctor</label>
@@ -129,20 +143,20 @@ extract($row);
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">School Year</span>
-                                            <input type="text" name="sy" value="<?=$sy?>" class="form-control" placeholder="" required>
+                                            <input type="text" name="sy" value="<?=$setting['sy']?>" class="form-control" placeholder="" disabled>
 											
                                         </div>
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Semester</span>
-                                            <input type="text" name="sem" value="<?=$sem?>" class="form-control" placeholder="" required>
+                                            <input type="text" name="sem" value="<?=$setting['sem']?>" class="form-control" placeholder="" disabled>
 											
                                         </div>
 										
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">Term</span>
-                                            <input type="text" name="term" value="<?=$term?>" class="form-control" placeholder="" required>
-											
+                                            <input type="text" name="term" value="<?=$setting['term']?>" class="form-control" placeholder="" disabled>
+					
                                         </div>
 										
 										<div class="form-group col-xs-12">

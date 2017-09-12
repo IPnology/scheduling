@@ -50,14 +50,18 @@ function upload(){
 			$sched = $filesop[3];
 			$facultyId = $filesop[4];
 			  
-	
-		  mysql_query("insert into my_subjects set idnumber='$idnumber',
-												code='$code',
-												time='$time',
-												sched='$sched',
-												facultyId='$facultyId'");
-			$success +=1;
-												
+			if(mysql_num_rows(mysql_query("select * from my_subjects where code='$code' && idnumber='$idnumber'")) > 0){
+					
+				  $fail += 1;
+			}else{
+			  mysql_query("insert into my_subjects set idnumber='$idnumber',
+													code='$code',
+													time='$time',
+													sched='$sched',
+													facultyId='$facultyId'");
+				$success +=1;
+			}
+													
 		  
 		}
 		
